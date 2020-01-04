@@ -66,6 +66,33 @@
 			clock-frequency = <24000000>;
 		};
 	};
+
+        backlight {
+                compatible = "tiny4412,backlight";
+                reg = <0x139D0000 0x14>;
+                tiny4412,backlight = <&gpx1 2 GPIO_ACTIVE_HIGH>;
+                pinctrl-names = "backlight_out","backlight_in";
+                pinctrl-0 = <&backlight_out>;
+                pinctrl-1 = <&backlight_in>;
+		interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
+                clocks = <&clock CLK_PWM>;
+                clock-names = "timers";
+        };
+};
+
+&pinctrl_1 {
+        backlight_out: backlight_out{
+                samsung,pins = "gpx1-2";
+                samsung,pin-function = <1>;
+                samsung,pin-pud = <0>;
+                samsung,pin-drv = <0>;
+        };
+         backlight_in: backlight_in{
+                samsung,pins = "gpx1-2";
+                samsung,pin-function = <0>;
+                samsung,pin-pud = <0>;
+                samsung,pin-drv = <0>;
+        };
 };
 
 &rtc {
